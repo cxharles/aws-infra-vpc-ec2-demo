@@ -35,10 +35,10 @@ terraform apply -var-file=vars/dev.tfvars -auto-approve
 # Create vars/prod.tfvars
 project        = "akudev"
 env            = "prod"
-region         = "ap-southeast-1"
+region         = "ca-central-1"
 cidr_block     = "10.0.0.0/16"
 public_subnets = ["10.0.32.0/20", "10.0.96.0/20", "10.0.160.0/20"]
-azs            = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
+azs            = ["ca-central-1a", "ca-central-1b", "ca-central-1d"]
 vpn_cidr_block = ["203.81.204.171/32"]
 
 .
