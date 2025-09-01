@@ -1,4 +1,4 @@
-aws eks update-kubeconfig --region eu-central-1 --name dev-cluster
+aws eks update-kubeconfig --region ca-central-1 --name dev-cluster
 
 $ eksctl get cluster dev-cluster
 NAME   VERSION STATUS CREATED   VPC   SUBNETS          SECURITYGROUPS  PROVIDER

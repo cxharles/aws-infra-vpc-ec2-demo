@@ -21,7 +21,7 @@ module "eks_cluster" {
   # Name your EKS cluster in whatever name you would like
   cluster_name = "dev-cluster"
   # Kubernetes latest version can be found at https://kubernetes.io/releases/
-  cluster_version = "1.27"
+  cluster_version = "1.32"
 
   # If you want that cluster plane API would be reachable from public address rather than private - enable this
   cluster_endpoint_public_access = true
@@ -30,12 +30,12 @@ module "eks_cluster" {
   cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   # Change with the VPC ID into which EKS control plane with nodes will be provisioned
-  vpc_id = "10.0.0.0/16"
+  vpc_id = module.vpc.vpc_id
   # subnet_ids - A list of subnet IDs where the nodes/node groups will be provisioned.
-    subnet_ids               = ["10.0.64.0/20", "10.0.98.0/20", "10.0.164.0/20"]
+  subnet_ids = module.vpc.private_subnets
   # control_plane_subnet_ids - Is a list of subnet IDs where the EKS cluster control plane (ENIs) will be provisioned.
   # If control_plane_subnet_ids is not provided, the EKS cluster control plane (ENIs) will be provisioned in subnet_ids provided subnets.
-  control_plane_subnet_ids = ["<subnet1>", "<subnet2>", "<subnet3>"]
+  control_plane_subnet_ids = module.vpc.private_subnets
 
   # aws-auth manages a configmap which maps IAM users and roles
   manage_aws_auth_configmap = "true"
