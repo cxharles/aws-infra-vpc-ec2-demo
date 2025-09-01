@@ -61,6 +61,7 @@ resource "aws_security_group" "default_public" {
   description = "${var.project} default public SG"
   vpc_id      = aws_vpc.this.id
 
+  # Allow SSH from VPN
   ingress {
     from_port   = 22
     to_port     = 22
@@ -69,14 +70,70 @@ resource "aws_security_group" "default_public" {
     description = "VPN IP"
   }
 
+  # Allow HTTP
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow http access"
+    description = "Allow HTTP access"
   }
 
+  # Jenkins
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Jenkins"
+  }
+
+  # Prometheus
+  ingress {
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Prometheus"
+  }
+
+  # Prometheus Node Exporter Metrics
+  ingress {
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Prometheus Node Exporter"
+  }
+
+  # Grafana
+  ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Grafana"
+  }
+
+  # SonarQube
+  ingress {
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "SonarQube"
+  }
+
+  # Application
+  ingress {
+    from_port   = 30007
+    to_port     = 30007
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Application"
+  }
+
+  # Allow all outbound
   egress {
     from_port   = 0
     to_port     = 0
